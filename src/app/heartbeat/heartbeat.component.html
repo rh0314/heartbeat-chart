@@ -1,0 +1,10 @@
+<div class="page">
+    <div class="heartbeat-chart-wrapper">
+        <canvas class="heartbeat-chart" #sampleChart baseChart [chartType]="'line'" [data]="ecgPoints" [labels]="ecgLabels" [options]="ecgOptions" [colors]="ecgColors">
+        </canvas>
+    </div>
+    <div class="chart-wrapper">
+        <canvas class="sample-chart" #sampleChart baseChart [chartType]="'bar'" [data]="ecgPoints" [labels]="ecgLabels" [options]="ecgOptions" [colors]="ecgColors">
+        </canvas>
+    </div>
+</div>
