@@ -1,6 +1,6 @@
 import { BaseChartDirective } from 'ng2-charts';
 import { Chart } from 'chart.js';
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-heartbeat',
@@ -15,9 +15,10 @@ export class HeartbeatComponent implements OnInit {
     label: 'Are you alive or are you dead?'
   }
   baseecg = [5, 6, 5, 6, 3, 30, -10, 0, 2, 3, 14, 6, 5, 5, 5, 5, 5];
-  ecgLabels = '.'.repeat(this.baseecg.length * 3).split('');
-  pointDelay = 100;
-  ecgDelay = 0;
+  ecgLabels = '.'.repeat(this.baseecg.length).split('');
+  @Input() pointDelay = 100;
+  @Input() ecgDelay = 0;
+  title = "Are you dead or are you alive?"
 
   ecgOptions: any = {
     responsive: true,
@@ -37,7 +38,9 @@ export class HeartbeatComponent implements OnInit {
           max: 30
         }
       }]
-    }
+    },
+    xAxes: [
+    ]
   }
 
   ecgColors = [
@@ -58,7 +61,12 @@ export class HeartbeatComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    setTimeout(() => { this.addecg(this) }, 1000);
+    setTimeout(() => {
+      while (this.ecgLabels.length < this.baseecg.length * 3) {
+        this.ecgLabels.push('.');
+      }
+      this.addecg(this)
+    }, 5000);
   }
 
   addecg(component: HeartbeatComponent) {
